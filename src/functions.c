@@ -101,7 +101,7 @@ void invalid(char *alphabet, char *cle)
     }
 }
 
-char *getFileContent(char *filename)
+void getFileContent(char *filename, char *args)
 {
     FILE *file = NULL;
     file = fopen(filename, "r");
@@ -116,11 +116,10 @@ char *getFileContent(char *filename)
         size++;
         letter = getc(file);
     }
-    char *text = malloc(size * sizeof(char));
-    printf("%s", text);
-    fgets(text, size, file);
+    realloc(args, size * sizeof(char));
+    fgets(args, size, file);
+    
     fclose(file);
-    return text;
 }
 
 Arguments getArguments(int argc, char *argv[])
@@ -131,6 +130,8 @@ Arguments getArguments(int argc, char *argv[])
     strcpy(args.cle, "notaverysmartkey");
     args.alphabet = malloc(strlen("abcdefghijklmnopqrstuvwxyz") * sizeof(char));
     strcpy(args.alphabet, "abcdefghijklmnopqrstuvwxyz");
+    args.message = malloc(strlen("dcode") * sizeof(char));
+    strcpy(args.message, "dcode");
 
     static struct option long_options[] = {
         {"help", no_argument, 0, 'h' },
@@ -146,14 +147,12 @@ Arguments getArguments(int argc, char *argv[])
         {
             case 'k':
             {
-                free(args.cle);
-                args.cle = getFileContent(optarg);
+                getFileContent(optarg, args.cle);
                 break;
             }
             case 'a':
             {
-                free(args.alphabet);
-                args.alphabet = getFileContent(optarg);
+                getFileContent(optarg, args.alphabet);
                 break;
             }
             case 's':
@@ -177,12 +176,12 @@ Arguments getArguments(int argc, char *argv[])
         {
             case 1:
             {
-                args.message = getFileContent(argv[optind]);
+                getFileContent(argv[optind], args.message);
                 break;
             }
             case 2:
             {
-                args.message = getFileContent(argv[optind]);
+                getFileContent(argv[optind], args.message);
                 args.sortie = argv[optind++];
                 break;
             }
@@ -192,6 +191,7 @@ Arguments getArguments(int argc, char *argv[])
     }
     else
     {
+        free(args.message);
         int i;
         char *message = malloc(255 * sizeof(char));
         printf("Entrez votre message > ");

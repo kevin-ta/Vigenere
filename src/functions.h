@@ -18,4 +18,5 @@ char *repeatkey(char *, int);
 void code(char *, char *, char *);
 void decode(char *, char *, char *);
 void invalid(char *, char *);
+void getFileContent(char *, char *);
 Arguments getArguments(int, char **);
