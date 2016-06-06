@@ -11,6 +11,11 @@ int main(int argc, char *argv[])
     invalid(args.alphabet, args.cle);
     char *repeat = repeatkey(args.cle, strlen(args.message));
     decode(args.alphabet, args.message, repeat);
-    printf("%s\n", args.message);
+    if(args.sortie != NULL)
+    {
+    	printf("Ecriture du resultat dans le fichier %s.\n", args.sortie);
+    	setFileContent(args.sortie, args.message);
+    }
+    else printf("%s\n", args.message);
     return 0;
 }

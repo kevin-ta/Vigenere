@@ -19,4 +19,5 @@ void code(char *, char *, char *);
 void decode(char *, char *, char *);
 void invalid(char *, char *);
 void getFileContent(char *, char *);
+void setFileContent(char *, char *);
 Arguments getArguments(int, char **);

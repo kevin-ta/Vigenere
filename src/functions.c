@@ -118,7 +118,19 @@ void getFileContent(char *filename, char *args)
     }
     realloc(args, size * sizeof(char));
     fgets(args, size, file);
-    
+    fclose(file);
+}
+
+void setFileContent(char *filename, char *args)
+{
+    FILE *file = NULL;
+    file = fopen(filename, "w+");
+    if (file == NULL)
+    {
+        printf("Impossible d'ouvrir le fichier %s\n", filename);
+        exit(1);
+    }
+    fputs(args, file);
     fclose(file);
 }
 
@@ -132,6 +144,7 @@ Arguments getArguments(int argc, char *argv[])
     strcpy(args.alphabet, "abcdefghijklmnopqrstuvwxyz");
     args.message = malloc(strlen("dcode") * sizeof(char));
     strcpy(args.message, "dcode");
+    args.sortie = NULL;
 
     static struct option long_options[] = {
         {"help", no_argument, 0, 'h' },
@@ -182,7 +195,7 @@ Arguments getArguments(int argc, char *argv[])
             case 2:
             {
                 getFileContent(argv[optind], args.message);
-                args.sortie = argv[optind++];
+                args.sortie = argv[optind+1];
                 break;
             }
             default:
