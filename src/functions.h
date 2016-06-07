@@ -1,5 +1,9 @@
+#ifndef _VIGENERE_H
+#define _VIGENERE_H
+
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 #include <getopt.h>
 
@@ -23,3 +27,5 @@ void setFileContent(char *, char *);
 void init(Arguments);
 void output(Arguments);
 Arguments getArguments(int, char **);
+
+#endif

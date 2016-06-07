@@ -1,8 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <getopt.h>
 #include "functions.h"
 
 int getValue(char *alphabet, char lettre)
@@ -101,7 +96,6 @@ void invalid(char *alphabet, char *cle)
 void getFileContent(char *filename, char *args)
 {
     FILE *file = NULL;
-    char letter;
     int size = 0;
     file = fopen(filename, "r");
     if (file == NULL)
@@ -109,11 +103,9 @@ void getFileContent(char *filename, char *args)
         printf("Impossible d'ouvrir le fichier %s\n", filename);
         exit(1);
     }
-    letter = getc(file);
-    while(letter != EOF) {
-        size++;
-        letter = getc(file);
-    }
+    fseek(file, 0, SEEK_END);
+    size = ftell(file);
+    fseek(file, 0, SEEK_SET);
     realloc(args, size * sizeof(char));
     fgets(args, size, file);
     fclose(file);
