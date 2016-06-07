@@ -132,6 +132,28 @@ void setFileContent(char *filename, char *args)
     fclose(file);
 }
 
+void init(Arguments args)
+{
+    char *s;
+    invalid(args.alphabet, args.cle);
+    if(args.skip == 1)
+    {
+        s = skip(args.message, args.alphabet);
+        strcpy(args.message, s);
+    }
+    args.cle = repeatkey(args.cle, strlen(args.message));
+}
+
+void output(Arguments args)
+{
+    if(args.sortie != NULL)
+    {
+        printf("Ecriture du resultat dans le fichier %s.\n", args.sortie);
+        setFileContent(args.sortie, args.message);
+    }
+    else printf("%s\n", args.message);
+}
+
 Arguments getArguments(int argc, char *argv[])
 {
     int opt = 0, index = 0, i;

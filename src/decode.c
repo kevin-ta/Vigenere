@@ -8,20 +8,8 @@
 int main(int argc, char *argv[])
 {
     Arguments args = getArguments(argc, argv);
-    char *repeat, *s;
-    invalid(args.alphabet, args.cle);
-    if(args.skip == 1)
-    {
-        s = skip(args.message, args.alphabet);
-        strcpy(args.message, s);
-    }
-    repeat = repeatkey(args.cle, strlen(args.message));
-    decode(args.alphabet, args.message, repeat);
-    if(args.sortie != NULL)
-    {
-    	printf("Ecriture du resultat dans le fichier %s.\n", args.sortie);
-    	setFileContent(args.sortie, args.message);
-    }
-    else printf("%s\n", args.message);
+    init(args);
+    decode(args.alphabet, args.message, args.cle);
+    output(args);
     return 0;
 }

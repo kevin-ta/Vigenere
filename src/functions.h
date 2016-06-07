@@ -20,4 +20,6 @@ void decode(char *, char *, char *);
 void invalid(char *, char *);
 void getFileContent(char *, char *);
 void setFileContent(char *, char *);
+void init(Arguments);
+void output(Arguments);
 Arguments getArguments(int, char **);
