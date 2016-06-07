@@ -48,13 +48,10 @@ char *skip(char *message, char *alphabet)
 char *repeatkey(char *cle, int size)
 {
     int i, index = 0, length = strlen(cle);
-
-    if(length >= size)
-    {
-        return cle;
-    }
-    
     char *repeat = malloc(size * sizeof(char));
+
+    if(length >= size) return cle;
+    
     for(i = 0; i < size; i++)
     {
         *(repeat + i) = *(cle + index);
@@ -104,14 +101,15 @@ void invalid(char *alphabet, char *cle)
 void getFileContent(char *filename, char *args)
 {
     FILE *file = NULL;
+    char letter;
+    int size = 0;
     file = fopen(filename, "r");
     if (file == NULL)
     {
         printf("Impossible d'ouvrir le fichier %s\n", filename);
         exit(1);
     }
-    char letter = getc(file);
-    int size = 0;
+    letter = getc(file);
     while(letter != EOF) {
         size++;
         letter = getc(file);
@@ -136,16 +134,9 @@ void setFileContent(char *filename, char *args)
 
 Arguments getArguments(int argc, char *argv[])
 {
-    int opt = 0, index = 0;
+    int opt = 0, index = 0, i;
+    char *message, *lettre;
     Arguments args;
-    args.cle = malloc(strlen("notaverysmartkey") * sizeof(char));
-    strcpy(args.cle, "notaverysmartkey");
-    args.alphabet = malloc(strlen("abcdefghijklmnopqrstuvwxyz") * sizeof(char));
-    strcpy(args.alphabet, "abcdefghijklmnopqrstuvwxyz");
-    args.message = malloc(strlen("dcode") * sizeof(char));
-    strcpy(args.message, "dcode");
-    args.sortie = NULL;
-
     static struct option long_options[] = {
         {"help", no_argument, 0, 'h' },
         {"skip", no_argument, 0, 's' },
@@ -153,6 +144,14 @@ Arguments getArguments(int argc, char *argv[])
         {"key", required_argument, 0, 'k' },
         {0,0,0,0}
     };
+    args.cle = malloc(strlen("notaverysmartkey") * sizeof(char));
+    args.alphabet = malloc(strlen("abcdefghijklmnopqrstuvwxyz") * sizeof(char));
+    args.message = malloc(strlen("dcode") * sizeof(char));
+    args.skip = 0;
+    args.sortie = NULL;
+    strcpy(args.cle, "notaverysmartkey");
+    strcpy(args.alphabet, "abcdefghijklmnopqrstuvwxyz");
+    strcpy(args.message, "dcode");
 
     while((opt = getopt_long(argc, argv,"k:a:sh", long_options, &index)) != -1)
     {
@@ -205,11 +204,11 @@ Arguments getArguments(int argc, char *argv[])
     else
     {
         free(args.message);
-        int i;
-        char *message = malloc(255 * sizeof(char));
+        message = malloc(255 * sizeof(char));
         printf("Entrez votre message > ");
-        fgets(message, sizeof(message), stdin);
-        char *lettre = strchr(message, '\n');
+        fgets(message, 255, stdin);
+        printf("%s\n", message);
+        lettre = strchr(message, '\n');
         if (lettre != NULL) *lettre = 0;
         else while (i != EOF && (i = fgetc(stdin)) != '\n');
         args.message = message;

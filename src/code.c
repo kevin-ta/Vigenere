@@ -8,8 +8,14 @@
 int main(int argc, char *argv[])
 {
     Arguments args = getArguments(argc, argv);
+    char *s, *repeat;
     invalid(args.alphabet, args.cle);
-    char *repeat = repeatkey(args.cle, strlen(args.message));
+    if(args.skip == 1)
+    {
+        s = skip(args.message, args.alphabet);
+        strcpy(args.message, s);
+    }
+    repeat = repeatkey(args.cle, strlen(args.message));
     code(args.alphabet, args.message, repeat);
     if(args.sortie != NULL)
     {
