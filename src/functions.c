@@ -103,7 +103,7 @@ void invalid(char *alphabet, char *cle)
         if(strchr(alphabet, *(cle + i)) == NULL)
         {
             printf("La cle contient des lettres qui ne sont pas dans l'alphabet\n");
-            exit(1);
+            exit(0);
         }
     }
 }
@@ -116,7 +116,7 @@ void getFileContent(char *filename, char *args)
     if (file == NULL)
     {
         printf("Impossible d'ouvrir le fichier %s\n", filename);
-        exit(1);
+        exit(0);
     }
     fseek(file, 0, SEEK_END);
     size = ftell(file);
@@ -137,7 +137,7 @@ void setFileContent(char *filename, char *args)
     if (file == NULL)
     {
         printf("Impossible d'ouvrir le fichier %s\n", filename);
-        exit(1);
+        exit(0);
     }
     fputs(args, file);
     fclose(file);
