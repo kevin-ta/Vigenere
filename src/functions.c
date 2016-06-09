@@ -10,6 +10,11 @@ char *removeChar(char *message, char lettre)
 {
     int i, j = 0, length = strlen(message);
     char *skipped = malloc(length * sizeof(char));
+    if(skipped == NULL)
+    {
+        fprintf(stderr,"Erreur : probleme allocation memoire\n");
+        exit(0);
+    }
     
     for(i = 0; i < length; i++)
     {
@@ -27,6 +32,11 @@ char *skip(char *message, char *alphabet)
 {
     int i, length = strlen(message);
     char *temp = malloc(length * sizeof(char));
+    if(temp == NULL)
+    {
+        fprintf(stderr,"Erreur : probleme allocation memoire\n");
+        exit(0);
+    }
     strcpy(temp, message);
 
     for(i = 0; i < strlen(temp); i++)
@@ -44,6 +54,11 @@ char *repeatkey(char *cle, int size)
 {
     int i, index = 0, length = strlen(cle);
     char *repeat = malloc(size * sizeof(char));
+    if(repeat == NULL)
+    {
+        fprintf(stderr,"Erreur : probleme allocation memoire\n");
+        exit(0);
+    }
 
     if(length >= size) return cle;
     
@@ -106,7 +121,11 @@ void getFileContent(char *filename, char *args)
     fseek(file, 0, SEEK_END);
     size = ftell(file);
     fseek(file, 0, SEEK_SET);
-    realloc(args, size * sizeof(char));
+    if(realloc(args, size * sizeof(char)) == NULL)
+    {
+        fprintf(stderr,"Erreur : probleme reallocation memoire\n");
+        exit(0);
+    }
     fgets(args, size, file);
     fclose(file);
 }
@@ -159,8 +178,23 @@ Arguments getArguments(int argc, char *argv[])
         {0,0,0,0}
     };
     args.cle = malloc(strlen("notaverysmartkey") * sizeof(char));
+    if(args.cle == NULL)
+    {
+        fprintf(stderr,"Erreur : probleme allocation memoire\n");
+        exit(0);
+    }
     args.alphabet = malloc(strlen("abcdefghijklmnopqrstuvwxyz") * sizeof(char));
+    if(args.alphabet == NULL)
+    {
+        fprintf(stderr,"Erreur : probleme allocation memoire\n");
+        exit(0);
+    }
     args.message = malloc(strlen("dcode") * sizeof(char));
+    if(args.message == NULL)
+    {
+        fprintf(stderr,"Erreur : probleme allocation memoire\n");
+        exit(0);
+    }
     args.skip = 0;
     args.sortie = NULL;
     strcpy(args.cle, "notaverysmartkey");
@@ -219,6 +253,11 @@ Arguments getArguments(int argc, char *argv[])
     {
         free(args.message);
         message = malloc(255 * sizeof(char));
+        if(message == NULL)
+        {
+            fprintf(stderr,"Erreur : probleme allocation memoire\n");
+            exit(0);
+        }
         printf("Entrez votre message > ");
         fgets(message, 255, stdin);
         printf("%s\n", message);
