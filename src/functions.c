@@ -260,7 +260,6 @@ Arguments getArguments(int argc, char *argv[])
         }
         printf("Entrez votre message > ");
         fgets(message, 255, stdin);
-        printf("%s\n", message);
         lettre = strchr(message, '\n');
         if (lettre != NULL) *lettre = 0;
         else while (i != EOF && (i = fgetc(stdin)) != '\n');
