@@ -222,7 +222,14 @@ Arguments getArguments(int argc, char *argv[])
             }
             case 'h':
             {
-                printf("Aide");
+                printf("Options : [-sh] [--help] [--skip] [-a alphabet] [-k clé] [--alphabet=alphabet] [--key=clé]\n");
+                printf("Le programme code encode un texte en utilisant le code Vigenère.\n");
+                printf("Le programme decode decode un texte en utilisant le code Vigenère.\n");
+                printf("Lorsqu'aucun fichier n'est fourni, l'encodage se fait depuis l'entrée standard vers la sortie standard, ligne par ligne.\n");
+                printf("Lorsqu'un seul fichier est fourni, l'encodage se fait depuis le fichier vers la sortie standard.\n");
+                printf("Lorsque deux fichiers sont fournis, l'encodage se fait depuis le premier vers le deuxième.\n");
+                printf("L'option -s (--skip), lorsqu'elle est présente, indique que les lettres du texte à encoder non présentes dans l'alphabet sont supprimées. Lorsqu'elle est absente, ces lettres restent en clair dans le message codé.\n");
+                printf("Les options -a (--alphabet) et -k (--key) permettent de spécifier les fichiers contenant respectivement l'alphabet et la clé. Si elles sont absentes, l'alphabet est l'alphabet latin non accentué composé uniquement de lettres minuscules (abcdefghijklmnopqrstuvwxyz) et la clé est notaverysmartkey.\n");                
                 break;
             }
             default:
