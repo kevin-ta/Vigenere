@@ -25,6 +25,6 @@ clean:
 zip: clean
 	mkdir -p $(USER)
 	cp -R Makefile bin/ doc/ src/ $(USER)
-	rm -rf $(USER)/doc/.gitignore $(USER)/bin/.gitignore
-	tar czf $(USER).tgz $(USER)
+	rm -rf $(USER)/bin/.gitignore
+	tar zcvf $(USER).tar.gz $(USER)
 	rm -rf $(USER)
